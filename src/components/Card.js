@@ -16,13 +16,18 @@ class Card extends Component {
 
     return (
       <div className="card">
-        #{ this.props.id }: { displayText } { displayEmoji }
-        <button
-          type="button"
-          onClick = {() => this.props.onDeleteCard(this.props.id)}
-        >
-          Delete
-        </button>
+        <section className="card__content">
+          #{ this.props.id }:
+            <p className="card__content-text"> { displayText } </p> 
+            <p className="card__content-emoji"> { displayEmoji } </p>
+            <button
+              type="button"
+              className = "card__delete"
+              onClick = {() => this.props.onDeleteCard(this.props.id)}
+            >
+              Delete
+            </button>
+        </section>
       </div>
     )
   }
