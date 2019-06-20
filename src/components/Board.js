@@ -7,7 +7,7 @@ import Card from './Card';
 import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
-const GET_CARDS_URL = 'https://inspiration-board.herokuapp.com/boards/Ada-Lovelace/cards'
+const CARD_API_URL = 'https://inspiration-board.herokuapp.com/boards/Pauline/cards'
 class Board extends Component {
   constructor() {
     super();
@@ -19,7 +19,7 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    axios.get(GET_CARDS_URL)
+    axios.get(CARD_API_URL)
     .then((response) => {
       console.log(response.data);
 
@@ -47,6 +47,24 @@ class Board extends Component {
     this.setState({ cardList: newCardList })
   }
 
+  addCardCallback = (card) => {
+    const cardIDs = this.state.cardList.map(card => card.id)
+
+    axios.post(CARD_API_URL, card)
+    .then((response) => {
+      console.log(response)
+      card.id = response.data.id;
+      console.log(card);
+
+      const newCards = this.state.cardList;
+      newCards.push(card);
+      this.setState({ cardList: newCards })
+    })
+    .catch((error) => {
+      this.setState({ error: error.message })
+    })
+
+  }
   
   render() {
     const displayCards = this.state.cardList.map((card, i) => {
@@ -61,6 +79,7 @@ class Board extends Component {
 
     return (
       <div>
+        <NewCardForm addCardCallback={this.addCardCallback} />
         { displayCards }
       </div>
     )
