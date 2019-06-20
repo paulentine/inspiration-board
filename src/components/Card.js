@@ -16,14 +16,15 @@ class Card extends Component {
 
     return (
       <div className="card">
-        { displayText } { displayEmoji }
+        #{ this.props.id }: { displayText } { displayEmoji }
       </div>
     )
   }
 }
 
 Card.propTypes = {
-  text: PropTypes.string,
+  id: PropTypes.number.isRequired,
+  text: PropTypes.string.isRequired,
   emoji: PropTypes.string
 };
 
