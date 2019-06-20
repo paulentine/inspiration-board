@@ -12,14 +12,33 @@ class Board extends Component {
     super();
 
     this.state = {
-      cards: [],
+      cardList: [],
     };
   }
 
+  componentDidMount() {
+    const cardList = CARD_DATA["cards"].map((card) => {
+      const newCard = {
+        text: card.text,
+        emoji: card.emoji || card.Emoji
+      }
+      return newCard;
+    })
+
+    console.log(cardList);
+
+    this.setState({ cardList })
+  }
+
+  
   render() {
+    const displayCards = this.state.cardList.map((card) => {
+      return <Card text={card.text} emoji={card.emoji} />
+    })
+
     return (
       <div>
-        Board
+        { displayCards }
       </div>
     )
   }
@@ -27,7 +46,8 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-
+  url: PropTypes.string,
+  boardName: PropTypes.string
 };
 
 export default Board;
