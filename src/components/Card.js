@@ -17,6 +17,12 @@ class Card extends Component {
     return (
       <div className="card">
         #{ this.props.id }: { displayText } { displayEmoji }
+        <button
+          type="button"
+          onClick = {() => this.props.onDeleteCard(this.props.id)}
+        >
+          Delete
+        </button>
       </div>
     )
   }
@@ -25,7 +31,8 @@ class Card extends Component {
 Card.propTypes = {
   id: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
-  emoji: PropTypes.string
+  emoji: PropTypes.string,
+  onDeleteCard: PropTypes.func,
 };
 
 export default Card;

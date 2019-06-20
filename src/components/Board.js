@@ -14,6 +14,7 @@ class Board extends Component {
 
     this.state = {
       cardList: [],
+      currentCard: undefined,
     };
   }
 
@@ -40,10 +41,22 @@ class Board extends Component {
     })
   }
 
+  onDeleteCard = (cardID) => {
+    const newCardList = this.state.cardList.filter(card => card.id !== cardID);
+
+    this.setState({ cardList: newCardList })
+  }
+
   
   render() {
     const displayCards = this.state.cardList.map((card, i) => {
-      return <Card key={i} id={card.id} text={card.text} emoji={card.emoji} />
+      return <Card 
+                key={i}
+                id={card.id}
+                text={card.text}
+                emoji={card.emoji}
+                onDeleteCard={this.onDeleteCard}
+              />
     })
 
     return (
