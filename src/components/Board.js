@@ -54,11 +54,10 @@ class Board extends Component {
     axios.post(this.ourURL, card)
     .then((response) => {
       console.log(response)
-      card.id = response.data.id;
+      card.id = response.data.card.id;
       console.log(card);
 
-      const newCards = this.state.cardList;
-      newCards.push(card);
+      const newCards = [card, ...this.state.cardList];
       this.setState({ cardList: newCards })
     })
     .catch((error) => {
