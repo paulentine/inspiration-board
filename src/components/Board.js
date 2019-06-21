@@ -43,14 +43,19 @@ class Board extends Component {
   }
 
   onDeleteCard = (cardID) => {
-    const newCardList = this.state.cardList.filter(card => card.id !== cardID);
-
-    this.setState({ cardList: newCardList })
+    axios.delete(this.props.delURL+cardID)
+    .then((response) => {
+      console.log(response)
+      const newCardList = this.state.cardList.filter(card => card.id !== cardID);
+  
+      this.setState({ cardList: newCardList })
+    })
+    .catch((error) => {
+      this.setState({ error: error.message })
+    })
   }
 
   addCardCallback = (card) => {
-    // this.state.cardList.map(card => card.id)
-
     axios.post(this.ourURL, card)
     .then((response) => {
       console.log(response)
@@ -63,7 +68,6 @@ class Board extends Component {
     .catch((error) => {
       this.setState({ error: error.message })
     })
-
   }
   
   render() {
@@ -84,7 +88,6 @@ class Board extends Component {
       </div>
     )
   }
-
 }
 
 Board.propTypes = {
